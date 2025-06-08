@@ -1,0 +1,3 @@
+D:\Projects\Java\T1\demo_microservices\core\src\main\java\ru\t1\core\model\enums\TransactionStatusEnum.java
+D:\Projects\Java\T1\demo_microservices\core\src\main\java\ru\t1\core\model\event\TransactionAcceptEvent.java
+D:\Projects\Java\T1\demo_microservices\core\src\main\java\ru\t1\core\model\event\TransactionResultEvent.java
