@@ -5,11 +5,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.t1.demo_t1.model.Client;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
     @Query(value = "SELECT * FROM Client c WHERE c.client_id = :clientId",
             nativeQuery = true)
-    Client findByClientId(UUID clientId);
+    Optional<Client> findByClientId(UUID clientId);
 }

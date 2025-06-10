@@ -46,6 +46,8 @@ spring:
 
 custom:
   metric:
-    time_limit: 500
+    time-limit: 500
   cached:
-    storage_time: 15000
+    storage-time: 15000
+  transaction:
+    max-rejected-transaction: 3

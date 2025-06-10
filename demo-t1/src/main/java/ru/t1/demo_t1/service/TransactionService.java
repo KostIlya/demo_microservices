@@ -9,7 +9,7 @@ import java.util.UUID;
 public interface TransactionService {
     List<TransactionDTO> getTransactions();
     TransactionDTO getTransactionById(Long id);
-    TransactionDTO getTransactionByAccountId(Long account_id);
+    List<TransactionDTO> getTransactionByAccountId(UUID account_id);
     Transaction getTransactionByTransactionId(UUID transactionId);
     void createTransaction(TransactionDTO transactionDTO);
     void deleteTransactionById(Long id);

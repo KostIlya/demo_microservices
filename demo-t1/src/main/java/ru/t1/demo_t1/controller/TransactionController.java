@@ -3,15 +3,15 @@ package ru.t1.demo_t1.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.demo_t1.aop.annotation.LogDataSourceError;
 import ru.t1.demo_t1.model.dto.TransactionDTO;
 import ru.t1.demo_t1.service.TransactionService;
 
 import java.util.List;
+import java.util.UUID;
 
-@Controller
+@RestController
 @Slf4j
 @RequestMapping(path = "transaction")
 public class TransactionController {
@@ -30,10 +30,10 @@ public class TransactionController {
 
     @GetMapping("/by_account/{account_id}")
     @LogDataSourceError
-    public ResponseEntity<TransactionDTO> getByAccountId(@PathVariable Long account_id) {
+    public ResponseEntity<List<TransactionDTO>> getByAccountId(@PathVariable String account_id) {
         log.info("Find transaction by account id {}", account_id);
 //        throw new RuntimeException("Проверка ошибки в TransactionController.getByAccountId(..)");
-        return ResponseEntity.ok(transactionService.getTransactionByAccountId(account_id));
+        return ResponseEntity.ok(transactionService.getTransactionByAccountId(UUID.fromString(account_id)));
     }
 
     @GetMapping("/{id}")

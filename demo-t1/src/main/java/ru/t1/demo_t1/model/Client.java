@@ -2,6 +2,7 @@ package ru.t1.demo_t1.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import ru.t1.core.model.enums.StatusClientEnum;
 
 import java.util.UUID;
 
@@ -24,5 +25,6 @@ public class Client {
     private String lastName;
     @Column(name = "client_id", nullable = false, unique = true)
     private UUID clientId;
-
+    @Column(name = "status")
+    private StatusClientEnum status;
 }

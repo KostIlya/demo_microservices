@@ -3,6 +3,7 @@ package ru.t1.demo_t1.util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.model.Account;
 import ru.t1.demo_t1.model.Client;
 import ru.t1.demo_t1.model.dto.AccountRequestDTO;
@@ -15,7 +16,9 @@ public class AccountRequestMapper {
     ClientRepository clientRepository;
 
     public Account toEntity(AccountRequestDTO accountRequestDTO) {
-        Client client = clientRepository.findByClientId(accountRequestDTO.getClientId());
+        Client client = clientRepository.findByClientId(accountRequestDTO.getClientId())
+                .orElseThrow(() -> new NoEntityException("Client with clientId "
+                        + accountRequestDTO.getClientId() + " doesn't exist"));
         return Account.builder()
                 .type(accountRequestDTO.getType())
                 .balance(accountRequestDTO.getBalance())

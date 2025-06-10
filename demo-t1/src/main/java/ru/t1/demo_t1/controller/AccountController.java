@@ -3,7 +3,6 @@ package ru.t1.demo_t1.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.demo_t1.aop.annotation.LogDataSourceError;
 import ru.t1.demo_t1.model.dto.AccountRequestDTO;
@@ -13,7 +12,7 @@ import ru.t1.demo_t1.service.AccountService;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
 @Slf4j
 @RequestMapping(path = "/account")
 public class AccountController {

@@ -12,6 +12,7 @@ import ru.t1.demo_t1.model.dto.TransactionDTO;
 import ru.t1.demo_t1.repository.TransactionRepository;
 import ru.t1.demo_t1.service.TransactionService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,9 +21,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TransactionServiceImpl implements TransactionService {
     @Autowired
-    private  TransactionRepository transactionRepository;
+    private TransactionRepository transactionRepository;
     @Autowired
-    private  TransactionMapper transactionMapper;
+    private TransactionMapper transactionMapper;
 
     @Override
     @Metric
@@ -38,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Metric
     @Cached(key = "id")
     public TransactionDTO getTransactionById(Long id) {
-        Transaction transaction = transactionRepository.findById(id).orElseThrow(()->new NoEntityException("Транзакции с id " + id + " не существует"));
+        Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new NoEntityException("Транзакции с id " + id + " не существует"));
 
         return TransactionDTO.builder()
                 .accountId(transaction.getAccount().getId())
@@ -50,21 +51,21 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Metric
     @Cached(key = "accountId")
-    public TransactionDTO getTransactionByAccountId(Long accountId) {
-        Transaction transaction = transactionRepository.findByAccountId(accountId).orElseThrow(()->new NoEntityException("Транзакции с account id " + accountId + " не существует"));
+    public List<TransactionDTO> getTransactionByAccountId(UUID accountId) {
+        List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
+        List<TransactionDTO> transactionDTOS = new ArrayList<>();
+        for (var t : transactions) {
+            transactionDTOS.add(transactionMapper.toDto(t));
+        }
 
-        return TransactionDTO.builder()
-                .accountId(transaction.getAccount().getId())
-                .amount(transaction.getAmount())
-                .timestamp(transaction.getTimestamp())
-                .build();
+        return transactionDTOS;
     }
 
     @Override
     @Cached(key = "transactionId")
     public Transaction getTransactionByTransactionId(UUID transactionId) {
-        Transaction transaction = transactionRepository.findByTransactionId(transactionId).orElseThrow(()->new NoEntityException("Транзакции с transaction id " + transactionId + " не существует"));
-        return transaction;
+        return transactionRepository.findByTransactionId(transactionId).orElseThrow(() ->
+                new NoEntityException("Транзакции с transaction id " + transactionId + " не существует"));
     }
 
     @Override
@@ -77,14 +78,16 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Metric
     public void deleteTransactionById(Long id) {
-        transactionRepository.findById(id).orElseThrow(()->new NoEntityException("Транзакции с id " + id + "  не существует."));
+        transactionRepository.findById(id).orElseThrow(() ->
+                new NoEntityException("Транзакции с id " + id + "  не существует."));
         transactionRepository.deleteById(id);
     }
 
     @Override
     @Metric
     public void updateTransaction(Long id, TransactionDTO transactionDTO) {
-        Transaction transaction = transactionRepository.findById(id).orElseThrow(()->new NoEntityException("Транзакции с id " + id + "  не существует."));
+        Transaction transaction = transactionRepository.findById(id).orElseThrow(() ->
+                new NoEntityException("Транзакции с id " + id + "  не существует."));
 
         if (!transactionDTO.getTransactionId().equals(transaction.getTransactionId())) {
             throw new IllegalArgumentException("Переданный transactionId отличается от существующего");
