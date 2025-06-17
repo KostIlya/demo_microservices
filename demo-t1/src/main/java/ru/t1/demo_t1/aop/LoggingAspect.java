@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import ru.t1.demo_t1.model.DataSourceErrorLog;
 import ru.t1.demo_t1.model.dto.DataSourceErrorLogDTO;
 import ru.t1.demo_t1.repository.DataSourceErrorLogRepository;
-import ru.t1.demo_t1.util.DataSourceErrorLogMapper;
+import ru.t1.demo_t1.mapper.DataSourceErrorLogMapper;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -9,7 +9,7 @@ import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
 import ru.t1.demo_t1.model.Transaction;
 import ru.t1.core.model.event.TransactionAcceptEvent;
-import ru.t1.demo_t1.util.TransactionEventMapper;
+import ru.t1.demo_t1.mapper.TransactionEventMapper;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

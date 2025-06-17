@@ -7,7 +7,7 @@ import ru.t1.demo_t1.aop.annotation.Cached;
 import ru.t1.demo_t1.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.model.Client;
-import ru.t1.demo_t1.util.ClientMapper;
+import ru.t1.demo_t1.mapper.ClientMapper;
 import ru.t1.demo_t1.model.dto.ClientDTO;
 import ru.t1.demo_t1.repository.ClientRepository;
 import ru.t1.demo_t1.service.ClientService;

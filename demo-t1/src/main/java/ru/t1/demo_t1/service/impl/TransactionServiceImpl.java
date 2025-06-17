@@ -3,10 +3,11 @@ package ru.t1.demo_t1.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.t1.core.model.enums.TransactionStatusEnum;
 import ru.t1.demo_t1.aop.annotation.Cached;
 import ru.t1.demo_t1.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
-import ru.t1.demo_t1.util.TransactionMapper;
+import ru.t1.demo_t1.mapper.TransactionMapper;
 import ru.t1.demo_t1.model.Transaction;
 import ru.t1.demo_t1.model.dto.TransactionDTO;
 import ru.t1.demo_t1.repository.TransactionRepository;
@@ -53,6 +54,19 @@ public class TransactionServiceImpl implements TransactionService {
     @Cached(key = "accountId")
     public List<TransactionDTO> getTransactionByAccountId(UUID accountId) {
         List<Transaction> transactions = transactionRepository.findByAccountId(accountId);
+        List<TransactionDTO> transactionDTOS = new ArrayList<>();
+        for (var t : transactions) {
+            transactionDTOS.add(transactionMapper.toDto(t));
+        }
+
+        return transactionDTOS;
+    }
+
+    @Override
+    @Metric
+    @Cached(key = "accountId")
+    public List<TransactionDTO> getTransactionByAccountIdAndStatus(UUID accountId, TransactionStatusEnum status) {
+        List<Transaction> transactions = transactionRepository.findByAccountAccountIdAndStatus(accountId, status);
         List<TransactionDTO> transactionDTOS = new ArrayList<>();
         for (var t : transactions) {
             transactionDTOS.add(transactionMapper.toDto(t));

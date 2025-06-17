@@ -20,6 +20,7 @@ spring:
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
+
   kafka:
     producer:
       bootstrap-servers: localhost:9092
@@ -51,3 +52,7 @@ custom:
     storage-time: 15000
   transaction:
     max-rejected-transaction: 3
+
+security:
+  token: tstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5h
+  expiration: 86400000

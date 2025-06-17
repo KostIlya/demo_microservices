@@ -2,10 +2,8 @@ package ru.t1.service2.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.t1.core.model.BlacklistRequest;
 import ru.t1.core.model.BlacklistResponse;
 import ru.t1.core.model.enums.StatusClientEnum;
@@ -19,14 +17,16 @@ public class BlacklistController {
     private BlacklistService blacklistService;
 
     @PostMapping("/verification")
-    public BlacklistResponse verificationClient(@RequestBody BlacklistRequest blacklistRequest) {
+    public ResponseEntity<BlacklistResponse> verificationClient(@RequestBody BlacklistRequest blacklistRequest) {
         log.info("A request for verification of the clientId {} has been received", blacklistRequest.getClientId());
 
         StatusClientEnum statusClient = blacklistService.clientVerification(blacklistRequest.getClientId());
 
-        return BlacklistResponse.builder()
+        BlacklistResponse response = BlacklistResponse.builder()
                 .clientId(blacklistRequest.getClientId())
                 .clientStatus(statusClient)
                 .build();
+
+        return ResponseEntity.ok().body(response);
     }
 }

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import ru.t1.core.model.enums.StatusClientEnum;
 import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.model.Account;
 import ru.t1.demo_t1.model.Client;
@@ -15,15 +14,13 @@ import ru.t1.demo_t1.model.enums.AccountStatusEnum;
 import ru.t1.core.model.enums.TransactionStatusEnum;
 import ru.t1.demo_t1.model.event.TransactionEvent;
 import ru.t1.core.model.event.TransactionResultEvent;
-import ru.t1.demo_t1.repository.ClientRepository;
 import ru.t1.demo_t1.service.AccountService;
 import ru.t1.demo_t1.service.ClientService;
 import ru.t1.demo_t1.service.TransactionConsumerService;
 import ru.t1.demo_t1.service.TransactionService;
-import ru.t1.demo_t1.util.AccountRequestMapper;
-import ru.t1.demo_t1.util.TransactionMapper;
+import ru.t1.demo_t1.mapper.AccountRequestMapper;
+import ru.t1.demo_t1.mapper.TransactionMapper;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component

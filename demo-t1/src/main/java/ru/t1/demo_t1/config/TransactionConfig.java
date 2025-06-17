@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "customer.transaction")
+@ConfigurationProperties(prefix = "custom.transaction")
 public class TransactionConfig {
     private Long maxRejectedTransaction;
 }

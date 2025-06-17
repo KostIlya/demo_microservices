@@ -2002,6 +2002,12 @@ insert into account (id, type_account, balance, client_id, account_id, status, f
 insert into account (id, type_account, balance, client_id, account_id, status, frozen_amount) values (999, 'DEBIT', 32935.81, 'cf3ac737-90da-4403-a4a0-d0d5c544d391', '90d7f216-c98c-401e-b198-bba32fa89591', 'CLOSED', 0);
 insert into account (id, type_account, balance, client_id, account_id, status, frozen_amount) values (1000, 'DEBIT', 86976.52, '0679cc4e-000a-41d0-a5c5-7c33d30b902e', '1f67daca-1ae9-4bcc-b5a9-a38325a7df42', 'BLOCKED', 3713.00);
 
+insert into role(id, name) values (1, 'ROLE_ADMIN');
+insert into role(id, name) values (2, 'ROLE_USER');
+
+
+
+
 
 
 

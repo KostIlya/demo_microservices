@@ -1,4 +1,4 @@
-package ru.t1.demo_t1.util;
+package ru.t1.demo_t1.mapper;
 
 import org.springframework.stereotype.Component;
 import ru.t1.demo_t1.model.Transaction;

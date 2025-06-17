@@ -17,7 +17,7 @@ import java.util.UUID;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BlacklistResponse {
     @JsonProperty("client_id")
-    public UUID clientId;
+    private UUID clientId;
     @JsonProperty("client_status")
-    public StatusClientEnum clientStatus;
+    private StatusClientEnum clientStatus;
 }

@@ -62,13 +62,13 @@ public class CachedAspect {
     private String extractKeyFromArguments(String key, ProceedingJoinPoint proceedingJoinPoint) {
         Object[] args = proceedingJoinPoint.getArgs();
         String[] argsNames = ((MethodSignature) proceedingJoinPoint.getSignature()).getParameterNames();
-
         int indexArg = 0;
         if (args.length != 0) {
-            while (!argsNames[indexArg].equals(key)) {
+            while (argsNames.length != indexArg && !argsNames[indexArg].equals(key)) {
                 indexArg++;
             }
-            key = args[indexArg].toString();
+            if (args.length > indexArg)
+                key = args[indexArg].toString();
         }
 
         return key;

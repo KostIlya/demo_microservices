@@ -13,7 +13,7 @@ import ru.t1.demo_t1.config.MetricConfig;
 import ru.t1.demo_t1.model.TimeLimitExceedLog;
 import ru.t1.demo_t1.model.dto.TimeLimitExceedLogDTO;
 import ru.t1.demo_t1.repository.TimeLimitExceedLogRepository;
-import ru.t1.demo_t1.util.TimeLimitExceedLogMapper;
+import ru.t1.demo_t1.mapper.TimeLimitExceedLogMapper;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;

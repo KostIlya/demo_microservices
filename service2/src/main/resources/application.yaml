@@ -14,8 +14,9 @@ spring:
   jpa:
     database-platform:
       org.hibernate.dialect.H2Dialect
-#    hibernate:
-#      ddl-auto: update
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
 
   kafka:
     producer:
@@ -40,3 +41,6 @@ custom:
     limit:
       T: 10000000000
       N: 3
+security:
+  token: tstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5h
+  expiration: 86400000
