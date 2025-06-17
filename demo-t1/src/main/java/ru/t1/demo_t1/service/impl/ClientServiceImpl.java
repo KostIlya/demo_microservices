@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.t1.demo_t1.aop.annotation.Cached;
-import ru.t1.demo_t1.aop.annotation.Metric;
+import ru.t1.demo_aspect_starter.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.model.Client;
 import ru.t1.demo_t1.mapper.ClientMapper;

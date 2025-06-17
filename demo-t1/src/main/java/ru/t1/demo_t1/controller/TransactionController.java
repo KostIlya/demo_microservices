@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.demo_t1.aop.annotation.LogDataSourceError;
+import ru.t1.demo_aspect_starter.aop.annotation.LogDataSourceError;
 import ru.t1.demo_t1.model.dto.TransactionDTO;
 import ru.t1.demo_t1.service.TransactionService;
 

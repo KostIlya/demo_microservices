@@ -1,4 +1,4 @@
-package ru.t1.demo_t1.model;
+package ru.t1.demo_aspect_starter.model;
 
 import jakarta.persistence.*;
 import lombok.*;

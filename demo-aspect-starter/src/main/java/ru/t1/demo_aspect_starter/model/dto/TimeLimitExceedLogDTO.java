@@ -1,4 +1,4 @@
-package ru.t1.demo_t1.model.dto;
+package ru.t1.demo_aspect_starter.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;

@@ -1,4 +1,4 @@
-package ru.t1.demo_t1.aop.annotation;
+package ru.t1.demo_aspect_starter.aop.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

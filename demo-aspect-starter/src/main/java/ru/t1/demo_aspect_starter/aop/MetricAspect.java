@@ -1,5 +1,6 @@
-package ru.t1.demo_t1.aop;
+package ru.t1.demo_aspect_starter.aop;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -8,18 +9,16 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
-import org.springframework.stereotype.Component;
-import ru.t1.demo_t1.config.MetricConfig;
-import ru.t1.demo_t1.model.TimeLimitExceedLog;
-import ru.t1.demo_t1.model.dto.TimeLimitExceedLogDTO;
-import ru.t1.demo_t1.repository.TimeLimitExceedLogRepository;
-import ru.t1.demo_t1.mapper.TimeLimitExceedLogMapper;
+import ru.t1.demo_aspect_starter.config.MetricProperties;
+import ru.t1.demo_aspect_starter.mapper.TimeLimitExceedLogMapper;
+import ru.t1.demo_aspect_starter.model.TimeLimitExceedLog;
+import ru.t1.demo_aspect_starter.model.dto.TimeLimitExceedLogDTO;
+import ru.t1.demo_aspect_starter.repository.TimeLimitExceedLogRepository;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
-@Component
 @Aspect
 @RequiredArgsConstructor
 public class MetricAspect {
@@ -30,8 +29,8 @@ public class MetricAspect {
     @Autowired
     private final TimeLimitExceedLogMapper timeLimitExceedLogMapper;
     @Autowired
-    private final MetricConfig metricConfig;
-    @Around("@annotation(ru.t1.demo_t1.aop.annotation.Metric)")
+    private final MetricProperties metricConfig;
+    @Around("@annotation(ru.t1.demo_aspect_starter.aop.annotation.Metric)")
     public Object timeRunningMethod(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         log.info("timeRunningMethod(): running");
         long start = System.currentTimeMillis();
@@ -65,5 +64,9 @@ public class MetricAspect {
         }
         log.info("timeRunningMethod(): completed. Method execution time {} ms", executionTime);
         return proceed;
+    }
+    @PostConstruct
+    public void init() {
+        log.info("MetricAspect initialized {}", this);
     }
 }

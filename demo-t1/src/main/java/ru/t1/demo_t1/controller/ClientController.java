@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.t1.demo_t1.aop.annotation.LogDataSourceError;
+import ru.t1.demo_aspect_starter.aop.annotation.LogDataSourceError;
 import ru.t1.demo_t1.model.dto.ClientDTO;
 import ru.t1.demo_t1.service.ClientService;
 

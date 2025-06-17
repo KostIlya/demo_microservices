@@ -1,8 +1,8 @@
-package ru.t1.demo_t1.mapper;
+package ru.t1.demo_aspect_starter.mapper;
 
 import org.springframework.stereotype.Component;
-import ru.t1.demo_t1.model.DataSourceErrorLog;
-import ru.t1.demo_t1.model.dto.DataSourceErrorLogDTO;
+import ru.t1.demo_aspect_starter.model.DataSourceErrorLog;
+import ru.t1.demo_aspect_starter.model.dto.DataSourceErrorLogDTO;
 
 @Component
 public class DataSourceErrorLogMapper {

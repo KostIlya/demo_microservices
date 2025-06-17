@@ -93,11 +93,11 @@ public class KafkaConfig {
         return new DefaultKafkaProducerFactory<>(config);
     }
 
-    @Bean
-    NewTopic createT1DemoMetrics() {
-        return TopicBuilder.name(environment.getProperty("spring.kafka.topic.demo-metrics"))
-                .build();
-    }
+//    @Bean
+//    NewTopic createT1DemoMetrics() {
+//        return TopicBuilder.name(environment.getProperty("spring.kafka.topic.demo-metrics"))
+//                .build();
+//    }
     @Bean
     NewTopic createT1DemoTransactions() {
         return TopicBuilder.name(environment.getProperty("spring.kafka.topic.demo-transactions"))

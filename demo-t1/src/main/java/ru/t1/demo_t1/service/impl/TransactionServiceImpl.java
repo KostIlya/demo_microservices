@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.t1.core.model.enums.TransactionStatusEnum;
 import ru.t1.demo_t1.aop.annotation.Cached;
-import ru.t1.demo_t1.aop.annotation.Metric;
+import ru.t1.demo_aspect_starter.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.mapper.TransactionMapper;
 import ru.t1.demo_t1.model.Transaction;

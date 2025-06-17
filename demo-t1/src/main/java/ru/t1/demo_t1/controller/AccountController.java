@@ -4,7 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.t1.demo_t1.aop.annotation.LogDataSourceError;
+import ru.t1.demo_aspect_starter.aop.annotation.LogDataSourceError;
+import ru.t1.demo_t1.exception.NoEntityException;
 import ru.t1.demo_t1.model.dto.AccountRequestDTO;
 import ru.t1.demo_t1.model.dto.AccountResponseDTO;
 import ru.t1.demo_t1.service.AccountService;
@@ -23,10 +24,10 @@ public class AccountController {
     @LogDataSourceError
     public ResponseEntity<List<AccountResponseDTO>> getAccounts() {
         log.info("Getting accounts");
-//        throw new NoEntityException("Ошибка получения счетов");
-        List<AccountResponseDTO> accounts = accountService.getAccounts();
-        log.info("Получено {} аккаунтов.", accounts.size());
-        return ResponseEntity.ok(accounts);
+        throw new NoEntityException("Ошибка получения счетов");
+//        List<AccountResponseDTO> accounts = accountService.getAccounts();
+//        log.info("Получено {} аккаунтов.", accounts.size());
+//        return ResponseEntity.ok(accounts);
     }
 
     @PostMapping("save")
