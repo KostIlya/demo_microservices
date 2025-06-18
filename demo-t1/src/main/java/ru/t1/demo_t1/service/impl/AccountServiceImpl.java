@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.t1.demo_aspect_starter.aop.annotation.CountArrestedAccount;
 import ru.t1.demo_t1.aop.annotation.Cached;
 import ru.t1.demo_aspect_starter.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
@@ -13,6 +14,7 @@ import ru.t1.demo_t1.mapper.AccountResponseMapper;
 import ru.t1.demo_t1.model.Account;
 import ru.t1.demo_t1.model.dto.AccountRequestDTO;
 import ru.t1.demo_t1.model.dto.AccountResponseDTO;
+import ru.t1.demo_t1.model.enums.AccountStatusEnum;
 import ru.t1.demo_t1.repository.AccountRepository;
 import ru.t1.demo_t1.repository.TransactionRepository;
 import ru.t1.demo_t1.service.AccountService;
@@ -82,6 +84,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public void update(Account account) {
+        if (accountRepository.findById(account.getId()).isEmpty()) {
+            log.error("Account with id {} doesn't exist", account.getAccountId());
+            throw new NoEntityException("Account with id " + account.getAccountId() + " doesn't exist");
+        }
+        accountRepository.save(account);
+    }
+
+    @Override
+    public List<Account> getAccountsByStatusAndLimit(AccountStatusEnum status, Long limit) {
+        return accountRepository.findByStatusAndLimit(status, limit);
+    }
+
+    @Override
     @Metric
     public void createAccount(AccountRequestDTO accountRequestDTO) {
         Account account = accountRequestMapper.toEntity(accountRequestDTO);
@@ -108,5 +124,19 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRequestMapper.toEntity(accountRequestDTO);
         account.setId(id);
         accountRepository.save(account);
+    }
+    @CountArrestedAccount(decrease = true)
+    @Override
+    public void accountUpdateStatus(String id) {
+        Account account = getAccountByAccountId(UUID.fromString(id));
+        account.setStatus(AccountStatusEnum.OPEN);
+        update(account);
+        log.info("Account with id {} updated", account);
+    }
+    @Override
+    @CountArrestedAccount
+    public void setStatusArrestedAccount(Account account) {
+        log.info("setStatusArrestedAccount");
+        account.setStatus(AccountStatusEnum.ARRESTED);
     }
 }

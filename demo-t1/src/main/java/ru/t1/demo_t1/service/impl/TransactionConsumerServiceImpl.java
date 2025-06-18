@@ -3,6 +3,7 @@ package ru.t1.demo_t1.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,6 +11,8 @@ import ru.t1.core.model.BlacklistRequest;
 import ru.t1.core.model.BlacklistResponse;
 import ru.t1.core.model.enums.StatusClientEnum;
 import ru.t1.core.model.enums.TransactionStatusEnum;
+import ru.t1.demo_aspect_starter.aop.annotation.CountArrestedAccount;
+import ru.t1.demo_aspect_starter.aop.annotation.CountBlockedClient;
 import ru.t1.demo_t1.config.TransactionConfig;
 import ru.t1.demo_t1.kafka.TransactionProducer;
 import ru.t1.demo_t1.model.Account;
@@ -47,6 +50,7 @@ public class TransactionConsumerServiceImpl implements TransactionConsumerServic
     private final AccountRequestMapper accountRequestMapper;
     @Autowired
     private final TransactionConfig transactionConfig;
+
     private static String jwtToken = null;
 
     @Override
@@ -73,16 +77,18 @@ public class TransactionConsumerServiceImpl implements TransactionConsumerServic
                     .fromString(transactionEvent.getAccountId()), TransactionStatusEnum.REJECTED);
 
             if (transactions.size() > transactionConfig.getMaxRejectedTransaction()) {
-                account.setStatus(AccountStatusEnum.ARRESTED);
+                accountService.setStatusArrestedAccount(account);
             }
         }
 
         if (statusClient.equals(StatusClientEnum.BLOCKED)) {
-            client.setStatus(StatusClientEnum.BLOCKED);
+            clientService.setStatusBlockedClient(client);
             account.setStatus(AccountStatusEnum.BLOCKED);
             clientService.update(client);
         }
     }
+
+
 
     private ResponseEntity<BlacklistResponse> generateResponse(Client client, Account account, RestTemplate restTemplate) {
         String url = "http://localhost:8081/blacklist/verification";

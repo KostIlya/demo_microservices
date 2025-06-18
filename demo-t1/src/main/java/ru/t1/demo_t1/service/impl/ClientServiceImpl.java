@@ -3,6 +3,9 @@ package ru.t1.demo_t1.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.t1.core.model.enums.StatusClientEnum;
+import ru.t1.demo_aspect_starter.aop.annotation.CountArrestedAccount;
+import ru.t1.demo_aspect_starter.aop.annotation.CountBlockedClient;
 import ru.t1.demo_t1.aop.annotation.Cached;
 import ru.t1.demo_aspect_starter.aop.annotation.Metric;
 import ru.t1.demo_t1.exception.NoEntityException;
@@ -34,6 +37,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public List<Client> getClientsByStatusAndLimit(StatusClientEnum status, Long limit) {
+        return clientRepository.findByStatusAndLimit(status, limit);
+    }
+
+    @Override
     @Cached
     public Client getClientByClientId(UUID clientId) {
         return clientRepository.findByClientId(clientId).orElseThrow(()->
@@ -49,5 +57,18 @@ public class ClientServiceImpl implements ClientService {
 
         clientRepository.save(client);
     }
-
+    @Override
+    @CountBlockedClient(decrease = true)
+    public void clientUpdateStatus(String id) {
+        Client client = getClientByClientId(UUID.fromString(id));
+        client.setStatus(StatusClientEnum.ACTIVE);
+        update(client);
+        log.info("Client with id {} updated", client);
+    }
+    @CountBlockedClient
+    @Override
+    public void setStatusBlockedClient(Client client) {
+        log.info("setStatusBlockedClient");
+        client.setStatus(StatusClientEnum.BLOCKED);
+    }
 }

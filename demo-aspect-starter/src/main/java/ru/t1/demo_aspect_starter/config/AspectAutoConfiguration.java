@@ -8,9 +8,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.kafka.core.KafkaTemplate;
+import ru.t1.demo_aspect_starter.aop.ArrestedAccountAspect;
+import ru.t1.demo_aspect_starter.aop.BlockedClientAspect;
 import ru.t1.demo_aspect_starter.aop.LoggingAspect;
 import ru.t1.demo_aspect_starter.aop.MetricAspect;
 import ru.t1.demo_aspect_starter.mapper.DataSourceErrorLogMapper;
@@ -24,9 +27,19 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(MetricProperties.class)
+@EnableAspectJAutoProxy
 @ConditionalOnClass({MetricProperties.class, DataSource.class, JpaRepository.class})
 public class AspectAutoConfiguration {
-
+    @Bean
+    @ConditionalOnMissingBean
+    public ArrestedAccountAspect arrestedAccountAspect() {
+        return new ArrestedAccountAspect();
+    }
+    @Bean
+    @ConditionalOnMissingBean
+    public BlockedClientAspect blockedClientAspect() {
+        return new BlockedClientAspect();
+    }
     @Bean
     public DataSourceErrorLogMapper dataSourceErrorLogMapper() {
         return new DataSourceErrorLogMapper();

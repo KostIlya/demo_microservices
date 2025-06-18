@@ -7,14 +7,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EntityScan({
-		"ru.t1.demo_aspect_starter.model",  // Сущности из стартера
-		"ru.t1.demo_t1.model"               // Сущности основного приложения
+		"ru.t1.demo_aspect_starter.model",
+		"ru.t1.demo_t1.model"
 })
 @EnableJpaRepositories({
-		"ru.t1.demo_aspect_starter.repository",  // Репозитории из стартера
-		"ru.t1.demo_t1.repository"               // Репозитории основного приложения
+		"ru.t1.demo_aspect_starter.repository",
+		"ru.t1.demo_t1.repository"
 })
-
 public class DemoT1Application {
 
 	public static void main(String[] args) {

@@ -52,6 +52,10 @@ custom:
     storage-time: 15000
   transaction:
     max-rejected-transaction: 3
+  schedule:
+    time: 45000
+    amount-client: 4
+    amount-account: 3
 
 security:
   token: tstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5h
