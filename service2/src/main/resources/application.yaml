@@ -1,0 +1,46 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: service2
+  datasource:
+    url: jdbc:h2:mem:service2_db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform:
+      org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+    #      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    #      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: t1_demo
+      properties:
+        spring:
+          json:
+            trusted.packages: "*"
+            value.default.type: "ru.t1.core.model.event.TransactionAcceptEvent"
+    topic:
+      demo-transaction-accept: t1_demo_transaction_accept
+      demo-transaction-result: t1_demo_transaction_result
+
+
+custom:
+  transaction:
+    limit:
+      T: 10000000000
+      N: 3
+security:
+  token: tstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5htstrs4g434wyhser5h
+  expiration: 86400000
