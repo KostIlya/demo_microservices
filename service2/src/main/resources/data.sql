@@ -1,0 +1,1 @@
+insert into users(id, username, password) values (1, 'user', '$2a$10$O/wHpyQB6FfyGr73Qx6C2u6vc5od4eWzML0gA5.4ON7toa/nQpBU.');
